@@ -1,0 +1,29 @@
+package OHRM;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class Login_multipleTestData {
+           public static void main(String[] args) throws IOException {
+			WebDriver driver;	
+		    String OrangeHRMApplicationUrl="http://127.0.0.1/orangehrm-4.2.0.1/symfony/web/index.php/dashboard";
+		    
+		    System.setProperty("webdriver.chrome.driver","C:\\Users\\sohai\\eclipse-workspace3\\SeleniumWebdriver\\browserDriverFiles\\chromedriver.exe");
+		    driver=new ChromeDriver();
+		    driver.get(OrangeHRMApplicationUrl);
+		     
+			FileInputStream testDataFile = new FileInputStream("./src/com/TestDataFiles/TestData.xlsx");
+			XSSFWorkbook workBook = new XSSFWorkbook(testDataFile);
+			XSSFSheet testDataSheet = workBook.getSheet("Sheet1");
+			
+			
+		
+
+	}
+
+}

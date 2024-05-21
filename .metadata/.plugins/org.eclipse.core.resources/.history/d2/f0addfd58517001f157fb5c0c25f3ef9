@@ -1,0 +1,278 @@
+package orangeHRM;
+
+import org.openqa.selenium.By;
+
+import org.openqa.selenium.WebElement;
+
+import org.openqa.selenium.chrome.ChromeDriver;
+
+
+
+public class OrangeHRMApplication_LogIn {
+
+	public static void main(String[] args) throws InterruptedException {
+
+		// Automate Browser
+
+		System.setProperty("webdriver.chrome.driver","C:\\Users\\sohai\\eclipse-workspace3\\SeleniumWebdriver\\browserDriverFiles\\chromedriver.exe");
+
+		ChromeDriver driver=new ChromeDriver();
+
+		
+
+		//Navigate to OrangeHRM Application LogIn Page
+
+		driver.navigate().to("http://127.0.0.1/orangehrm-4.2.0.1/symfony/web/index.php/auth/login");
+
+		
+
+		// Validate LogInPage
+
+		 //Expected Title - OrangeHRM - (Should be)
+
+		String Actual_OrangehrmTitle=driver.getTitle();
+
+		System.out.println("The Actual title of the Orange HRM Application is:-"+Actual_OrangehrmTitle);
+
+		 
+
+		String Expected_OrangehrmTitle="OrangeHRM";//should be
+
+		System.out.println("The Expected title of the Orange HRM Application is:-"+Expected_OrangehrmTitle);
+
+		
+
+		if(Actual_OrangehrmTitle.equals(Expected_OrangehrmTitle))
+
+		{
+
+			System.out.println("The OrangeHRM Application title is Matched-PASS");
+
+		}
+
+		else
+
+		{
+
+			System.out.println("The OrangeHRM Application title is NOT Matched-FAIl");
+
+		}
+      System.out.println();
+		
+
+		// Expected Url Address should have - orangehrm-4.2.0.1
+
+		String Actual_orangehrmUrlAdress=driver.getCurrentUrl();
+
+	    System.out.println("The Actual orange HRM URL Address is:-"+Actual_orangehrmUrlAdress);
+
+	   
+
+	    String Expected_orangehrmUrlAdress="orangehrm-4.2.0.1";//should have
+
+	    System.out.println("The Expected orange HRM URL Address is:-"+Expected_orangehrmUrlAdress);
+
+	    
+
+	    if(Actual_orangehrmUrlAdress.contains(Expected_orangehrmUrlAdress))
+
+	    {
+
+	    	System.out.println("The Expected URL Address Found-PASS");
+
+	    }
+
+	    else
+
+	    {
+
+	    	System.out.println("The Expected URL Address NOT Found-FAIL");
+
+	    }
+	    System.out.println();
+
+	    
+
+	    //Expected LogIn Page Text - LOGIN Panel(should be)
+
+	       //Actual Login page Text
+
+	    By Actual_LogInPageTextProperty=By.id("logInPanelHeading");
+
+	    WebElement Login=driver.findElement(Actual_LogInPageTextProperty);	
+
+	    String Actual_LogInWebElementText=Login.getText();
+
+	    System.out.println(" The Actual Login page text Is :-"+Actual_LogInWebElementText);
+
+	      //Expected Login Page Text
+
+	    String Expected_LogInWebElementText="LOGIN Panel";
+
+	    System.out.println(" The Expected Login page text Is :-"+Expected_LogInWebElementText);
+
+	    
+
+	    if(Actual_LogInWebElementText.equals(Expected_LogInWebElementText))
+
+	    {
+
+	    	System.out.println("Expected login page text is Matched-PASS");
+
+	    }
+
+	    else
+
+	    {
+
+	    	System.out.println("Expected login page text is Not Matched-FAIL");
+
+	    }
+	    System.out.println();
+
+	    
+
+	    
+
+	    //LogIn to the Application with a Validate Test data
+
+
+
+	      String userNameTestData="Heenup";
+
+	      By userNameProperty=By.id("txtUsername");
+
+	      WebElement username=driver.findElement(userNameProperty); 
+
+	      username.sendKeys(userNameTestData);
+
+	      
+
+	      String PasswordTestData="Heenu@9090";
+
+	      By Passwordproperty=By.id("txtPassword");
+
+	      WebElement Password=driver.findElement(Passwordproperty);
+
+	      Password.sendKeys(PasswordTestData);
+
+	      
+
+	     By LoginButtonProperty=By.className("button");
+
+	     WebElement LoginButton=driver.findElement(LoginButtonProperty);
+
+	     LoginButton.click();
+
+	     
+
+	     //Validate OrangeHRM Application HomePage
+
+	     //Expected Title - OrangeHRM - (Should be)
+
+	     
+
+	        String Actual_orangeHRMHomePage=driver.getTitle();
+
+		    System.out.println("The Actual title of the Orange HRM Application is:-"+Actual_OrangehrmTitle);
+
+			 
+
+			String Expected_orangeHRMHomePage="OrangeHRM";//should be
+
+			System.out.println("The Expected title of the Orange HRM Application is:-"+Expected_OrangehrmTitle);
+
+			
+
+			if(Actual_orangeHRMHomePage.equals(Expected_orangeHRMHomePage))
+
+			{
+
+				System.out.println("The OrangeHRM Home page  title is Matched-PASS");
+
+			}
+
+			else
+
+			{
+
+				System.out.println("The OrangeHRM Home page title is NOT Matched-FAIl");
+
+			}
+			System.out.println();
+
+			
+
+		     //Expected text should have - Admin
+
+
+
+			 By Actual_HomePageTextProperty=By.id("menu_admin_viewAdminModule");
+
+			 WebElement HomePage=driver.findElement(Actual_HomePageTextProperty);	
+
+	         String Actual_HomePageText=HomePage.getText();
+
+		     System.out.println(" The Actual Home page text Is :-"+Actual_HomePageText);
+
+		    
+
+	         String Expected_HomePageText="Admin";
+
+		     System.out.println(" The expected Home page text Is :-"+Expected_HomePageText);
+
+		     
+
+		     if(Actual_HomePageText.contains(Expected_HomePageText))
+
+		     {
+
+		    	 System.out.println("The Expected Home Page Text found-PASS ");
+
+		     }
+
+		     else
+
+		     {
+
+		    	 System.out.println("The Expected Home Page Text NOT found-FAIL ");
+
+
+
+		     }
+		     System.out.println();
+
+		  // Test WelCome Admin
+
+		   By WelcomeAdminProperty=By.linkText("Welcome Admin");
+
+		   WebElement WelcomeAdmin=driver.findElement(WelcomeAdminProperty);
+
+		   WelcomeAdmin.click();
+
+		   
+
+		   /// Synchronization
+
+		   Thread.sleep(5000); 
+
+		   
+
+		   //Test LogOut
+
+		   By logoutProperty=By.linkText("Logout");
+
+		   WebElement Logout=driver.findElement(logoutProperty);
+
+		   Logout.click();
+
+		     
+
+		   driver.close();
+
+	  	
+
+	}
+
+}
+

@@ -1,0 +1,82 @@
+package orangeHRM_Application;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+
+public class Orange_HRMApplication_LoginTest_TestDataFile {
+
+	public static void main(String[] args) throws IOException, InterruptedException {
+	WebDriver driver;	
+    String OrangeHRMApplicationUrl="http://127.0.0.1/orangehrm-4.2.0.1/symfony/web/index.php/dashboard";
+    
+     System.setProperty("webdriver.chrome.driver","C:\\Users\\sohai\\eclipse-workspace3\\SeleniumWebdriver\\browserDriverFiles\\chromedriver.exe");
+     driver=new ChromeDriver();
+     driver.get(OrangeHRMApplicationUrl);
+     
+     //getting testData from External file
+     FileInputStream testData=new FileInputStream("./src/orangeHRM_ApplicationTestDataFiles/TestDataOfOrangeHRM.xlsx");
+     XSSFWorkbook workbook=new XSSFWorkbook(testData);
+     XSSFSheet testDataSheet=workbook.getSheet("Sheet1");
+     Row RowOfAsheet=testDataSheet.getRow(1);
+     Cell RowofAcellOfRowofSheet=RowOfAsheet.getCell(0);
+    
+     String UserNameTestData=RowofAcellOfRowofSheet.getStringCellValue();
+     Cell RowofAcellOfRowofSheet1=RowOfAsheet.getCell(1);
+     String PasswordTestData=RowofAcellOfRowofSheet1.getStringCellValue();
+     
+     By UserNameProperty=By.id("txtUsername");
+     WebElement UserName=driver.findElement(UserNameProperty);
+    
+     UserName.sendKeys(UserNameTestData);
+     By PasswordProperty=By.id("txtPassword");
+     WebElement Password=driver.findElement(PasswordProperty);
+     Password.sendKeys(PasswordTestData);
+     
+    By loginProperty=By.className("button");
+    WebElement login=driver.findElement(loginProperty);
+    login.click();
+    
+// Validating HOME Page
+ // expected Text should have - Admin
+  //<a href="#" id="welcome" class="panelTrigger">Welcome Admin</a>
+   String Expected_WelcomeAdminText="Admin";
+   System.out.println("The Expected text orange HRM application home page is:"+Expected_WelcomeAdminText);
+   
+   By WelcomeAdminProperty=By.partialLinkText("Welcome");
+   WebElement WelcomeAdmin=driver.findElement(WelcomeAdminProperty); 
+   String Actual_WelcomeAdminText=WelcomeAdmin.getText();
+   System.out.println("The Actual text of Orange HRM application Home Page is:"+Actual_WelcomeAdminText);
+   
+   if(Actual_WelcomeAdminText.contains(Expected_WelcomeAdminText))
+   {
+	   System.out.println("Successfully navigated to the OrangeHRm application Home page-PASS");
+	   Cell testResult=RowOfAsheet.getCell(2);
+	   testResult.setCellValue("Successfully navigated to the OrangeHRm application Home page-PASS");
+   }
+   else
+   {
+	   System.out.println("Failed to navigated to the OrangeHRm application Home page-FAIL");
+	   Cell testResult=RowOfAsheet.getCell(2);
+	   testResult.setCellValue("Failed to navigated to the OrangeHRm application Home page-FAIL");
+   }
+   
+   FileOutputStream testResultFile=new FileOutputStream("./src/orangeHRM_ApplicationTestDataFiles/TestDataOfOrangeHRM.xlsx");
+   workbook.write(testResultFile);
+ 
+   }
+ 
+
+
+   }
+

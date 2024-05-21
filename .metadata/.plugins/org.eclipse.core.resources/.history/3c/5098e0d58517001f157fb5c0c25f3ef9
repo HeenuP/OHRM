@@ -1,0 +1,156 @@
+package orangeHRM;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class Login_Script
+{
+	WebDriver driver;
+	String OrangeHRM_ApplicationURL="http://127.0.0.1/orangehrm-4.2.0.1/symfony/web/index.php/dashboard";
+	
+public void OrangeHRM_ApplicationLaunch()
+{
+	System.setProperty("webdriver.chrome.driver", "./browserDriverFiles/chromedriver.exe");
+	driver=new ChromeDriver();
+	driver.get(OrangeHRM_ApplicationURL);
+	driver.manage().window().maximize();
+
+}
+public void Validating_LoginPageText() throws IOException
+{
+	By Actual_LoginPageTextProperty=By.id("logInPanelHeading");
+	WebElement Actual_LoginPageTextElement=driver.findElement(Actual_LoginPageTextProperty);
+	String Actual_LoginPageText=Actual_LoginPageTextElement.getText();
+	System.out.println("The Actual Login Page Text Is:"+Actual_LoginPageText);
+	
+	FileInputStream loginPageTextTestData=new FileInputStream("./src/orangeHRM_ApplicationTestDataFiles/OrangeHRM_LogInTestDataFile.xlsx");
+	XSSFWorkbook loginPageTextTestDataworkbook =new XSSFWorkbook(loginPageTextTestData);
+	XSSFSheet loginPageTextTestDataSheet=loginPageTextTestDataworkbook.getSheet("LogInTestData");
+	Row loginPageTextTestDataSheetRow=loginPageTextTestDataSheet.getRow(1);
+	Cell loginPageTextTestDataSheetRowOfACell=loginPageTextTestDataSheetRow.getCell(2);
+	loginPageTextTestDataSheetRowOfACell.setCellValue(Actual_LoginPageText);
+	FileOutputStream TestResult=new FileOutputStream("./src/orangeHRM_ApplicationTestDataFiles/OrangeHRM_LogInTestDataFile.xlsx");
+	loginPageTextTestDataworkbook.write(TestResult);
+   
+ 
+   
+	Cell loginPageTextTestDataSheetRowOfCell=loginPageTextTestDataSheetRow.getCell(0);  
+	String Expected_loginPageText=loginPageTextTestDataSheetRowOfCell.getStringCellValue();
+    System.out.println("The Expected Login Page Text is:"+Expected_loginPageText);
+    
+    if(Actual_LoginPageText.equals(Expected_loginPageText))
+    {
+    	System.out.println("Actual Login Page Text is Matched with Expected Login Page Text-PASS");
+    	Cell TextResult=loginPageTextTestDataSheetRow.getCell(03);
+    	TextResult.setCellValue("Actual Login Page Text is Matched with Expected Login Page Text-PASS");
+    	FileOutputStream TestResult1=new FileOutputStream("./src/orangeHRM_ApplicationTestDataFiles/OrangeHRM_LogInTestDataFile.xlsx");
+    	loginPageTextTestDataworkbook.write(TestResult1);
+       
+    }
+    else
+    {
+    	System.out.println("Actual Login Page Text is Not Matched with Expected Login Page Text-FAIL");
+    	Cell TextResult=loginPageTextTestDataSheetRow.getCell(03);
+    	TextResult.setCellValue("Actual Login Page Text is Not Matched with Expected Login Page Text-FAIL");
+    	FileOutputStream TestResult1=new FileOutputStream("./src/orangeHRM_ApplicationTestDataFiles/OrangeHRM_LogInTestDataFile.xlsx");
+    	loginPageTextTestDataworkbook.write(TestResult1);
+    	
+    }
+    
+}
+
+//<span id="spanMessage">Invalid credentials</span>
+public void InvalidCredentials() throws IOException
+{
+    String userNameTestData="Heenup";
+    By userNameProperty=By.id("txtUsername");
+    WebElement username=driver.findElement(userNameProperty); 
+    username.sendKeys(userNameTestData);
+
+    String PasswordTestData="Heenu@909";
+    By Passwordproperty=By.id("txtPassword");
+    WebElement Password=driver.findElement(Passwordproperty);
+    Password.sendKeys(PasswordTestData);
+
+    
+
+   By LoginButtonProperty=By.className("button");
+   WebElement LoginButton=driver.findElement(LoginButtonProperty);
+   LoginButton.click();
+
+   
+  By InvalidCredentialProperty=By.id("spanMessage");
+ WebElement InvalidCredential=driver.findElement(InvalidCredentialProperty);
+ String Actual_InvalidCredntialText=InvalidCredential.getText();
+ System.out.println("The Actual InvalidCredential Text message is:"+Actual_InvalidCredntialText);
+ 
+ FileInputStream loginPageTextTestData=new FileInputStream("./src/orangeHRM_ApplicationTestDataFiles/OrangeHRM_LogInTestDataFile.xlsx");
+ XSSFWorkbook loginPageTextTestDataworkbook =new XSSFWorkbook(loginPageTextTestData);
+ XSSFSheet loginPageTextTestDataSheet=loginPageTextTestDataworkbook.getSheet("LogInTestData");
+ Row loginPageTextTestDataSheetOfInvalidCredential =loginPageTextTestDataSheet.getRow(2);
+ Cell loginPageTextTestDataSheetOfInvalidCredentialRowOFcell=loginPageTextTestDataSheetOfInvalidCredential.getCell(2);
+ loginPageTextTestDataSheetOfInvalidCredentialRowOFcell.setCellValue(Actual_InvalidCredntialText);
+ FileOutputStream TestResult=new FileOutputStream("./src/orangeHRM_ApplicationTestDataFiles/OrangeHRM_LogInTestDataFile.xlsx");
+ loginPageTextTestDataworkbook.write(TestResult);
+ 
+ Row Expected_loginPageTextTestDataSheetOfInvalidCredential =loginPageTextTestDataSheet.getRow(1);
+ Cell Expected_loginPageTextTestDataSheetOfInvalidCredentialRowOFcell=loginPageTextTestDataSheetOfInvalidCredential.getCell(1);
+ String Expected_InvalidCredntialText=loginPageTextTestDataSheetOfInvalidCredentialRowOFcell.getStringCellValue();
+ System.out.println("The Expected InvalidCredential Text message is:"+Expected_InvalidCredntialText);
+ 
+ if(Actual_InvalidCredntialText.equals(Expected_InvalidCredntialText))
+ {
+    System.out.println("Actual Login Page Text is Matched with Expected Login Page Text-PASS");
+    
+ 	Cell TextResult=loginPageTextTestDataSheetOfInvalidCredential.getCell(03);
+ 	TextResult.setCellValue("Actual Login Page Text is Matched with Expected Login Page Text-PASS");
+ 	FileOutputStream TestResult1=new FileOutputStream("./src/orangeHRM_ApplicationTestDataFiles/OrangeHRM_LogInTestDataFile.xlsx");
+ 	loginPageTextTestDataworkbook.write(TestResult1);
+    
+ }
+ else
+ {
+	 Cell TextResult=loginPageTextTestDataSheetOfInvalidCredential.getCell(03);
+	 	TextResult.setCellValue("Actual Login Page Text is Matched with Expected Login Page Text-PASS");
+	 	FileOutputStream TestResult1=new FileOutputStream("./src/orangeHRM_ApplicationTestDataFiles/OrangeHRM_LogInTestDataFile.xlsx");
+	 	loginPageTextTestDataworkbook.write(TestResult1);
+ }
+ System.out.println();
+}
+public void LoginwithMultipleTestData() throws IOException
+{
+	FileInputStream loginPageTextTestData=new FileInputStream("./src/orangeHRM_ApplicationTestDataFiles/OrangeHRM_LogInTestDataFile.xlsx");
+	XSSFWorkbook loginPageTextTestDataworkbook =new XSSFWorkbook(loginPageTextTestData);
+	XSSFSheet loginPageTextTestDataSheet=loginPageTextTestDataworkbook.getSheet("LogInTestData");
+	Row loginPageTextTestDataSheetRow=loginPageTextTestDataSheet.getRow(1);
+    Cell	TestDataSheetRowUserName=loginPageTextTestDataSheetRow.getCell(7);
+    Cell TestDataSheetRowPassword=loginPageTextTestDataSheetRow.getCell(8);
+    System.out.print(" " + TestDataSheetRowUserName);
+    System.out.print(" "+TestDataSheetRowPassword);
+ 
+}
+
+public static void main(String[] args) throws IOException
+{
+	Login_Script Login=new Login_Script();
+	Login.OrangeHRM_ApplicationLaunch();
+	Login.Validating_LoginPageText();
+	Login.InvalidCredentials();
+	Login.LoginwithMultipleTestData();
+	
+	
+}
+}
+
+

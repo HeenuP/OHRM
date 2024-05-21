@@ -1,0 +1,217 @@
+package orangeHRM;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class PIM_AddEmploye 
+{
+WebDriver driver;	
+String OrangeHRM_ApplicationURL="http://127.0.0.1/orangehrm-4.2.0.1/symfony/web/index.php/dashboard";
+
+public void OrangeHRM_ApplicationLaunch()
+{
+	System.setProperty("webdriver.chrome.driver", "./browserDriverFiles/chromedriver.exe");
+	driver=new ChromeDriver();
+	driver.get(OrangeHRM_ApplicationURL);
+	driver.manage().window().maximize();
+
+	
+}
+public void OrangeHRMApplication_Login()
+{
+	//<input name="txtUsername" id="txtUsername" type="text">
+   String UserNameTestData="HeenuP"; 	
+   By UserNameProperty=By.id("txtUsername");
+   WebElement UserName=driver.findElement(UserNameProperty);
+   UserName.sendKeys(UserNameTestData);
+   
+   //<input name="txtPassword" id="txtPassword" autocomplete="off" type="password">
+  String PassWordTestData="Heenu@9090";
+  By Passwordproperty=By.id("txtPassword");
+  WebElement Password=driver.findElement(Passwordproperty);
+  Password.sendKeys(PassWordTestData);
+  
+  //<input type="submit" name="Submit" class="button" id="btnLogin" value="LOGIN">
+  By LoginButtonProperty=By.name("Submit");
+  WebElement LoginButton=driver.findElement(LoginButtonProperty);
+  LoginButton.click();
+}
+public void Click_PIM()
+{
+	//<a href="/orangehrm-4.2.0.1/symfony/web/index.php/pim/viewPimModule" id="menu_pim_viewPimModule" class="firstLevelMenu"><b>PIM</b></a>
+  By PIMProperty=By.linkText("PIM");
+  WebElement PIM=driver.findElement(PIMProperty);
+  PIM.click();
+}
+public void AddEmploye_Click()
+{
+	//<a href="/orangehrm-4.2.0.1/symfony/web/index.php/pim/addEmployee" id="menu_pim_addEmployee">Add Employee</a>
+    By AddEmployeProperty=By.linkText("Add Employee");
+    WebElement AddEmploye=driver.findElement(AddEmployeProperty);
+    AddEmploye.click();
+   
+}
+public void Adding_Employe()
+{
+	//<input class="formInputText" maxlength="30" type="text" name="firstName" id="firstName">
+	String FirstNameTestData="HEENA";
+    By FirstNameProperty=By.className("formInputText");
+    WebElement FirstName=driver.findElement(FirstNameProperty);
+    FirstName.sendKeys(FirstNameTestData);
+    
+    //<input class="formInputText" maxlength="30" type="text" name="middleName" id="middleName">
+    String middleNameTestData="P";
+    By middleNameProperty=By.id("middleName");
+    WebElement middleName=driver.findElement(middleNameProperty);
+    middleName.sendKeys(middleNameTestData);
+    
+    //<input class="formInputText" maxlength="30" type="text" name="lastName" id="lastName">
+     String LastNameTestData="PATEL";
+     By LastNameProperty=By.id("lastName");
+     WebElement LastName=driver.findElement(LastNameProperty);
+     LastName.sendKeys(LastNameTestData);
+     
+     //<input class="formInputText valid" maxlength="10" type="text" name="employeeId" value="0001" id="employeeId">
+     By EmployeeIDProperty=By.id("employeeId");
+     WebElement  EmployeeID=driver.findElement(EmployeeIDProperty);
+     EmployeeID.getText();
+     
+     //<input type="checkbox" name="chkLogin" value="1" id="chkLogin">
+    By CheckBoxProperty=By.id("chkLogin");
+    WebElement CheckBox=driver.findElement(CheckBoxProperty);
+    CheckBox.click();
+    
+    //<input class="formInputText" maxlength="40" type="text" name="user_name" id="user_name">
+   String User_NameTestData="SeenuM";
+   By User_NameProperty=By.id("user_name");
+   WebElement User_Name=driver.findElement(User_NameProperty);
+   User_Name.sendKeys(User_NameTestData);
+   
+   //<input class="formInputText passwordRequired" maxlength="64" autocomplete="off" type="password" name="user_password" id="user_password">
+   String User_PasswordTestData="Seenu@790";
+   By User_PasswordProperty=By.id("user_password");
+   WebElement User_Password=driver.findElement(User_PasswordProperty);
+   User_Password.sendKeys(User_PasswordTestData);
+   
+   //<input class="formInputText passwordRequired" maxlength="64" autocomplete="off" type="password" name="re_password" id="re_password">
+   String User_ConfirmPasswordTestData="Seenu@790";
+   By User_ConfirmPasswordProperty=By.id("re_password");
+   WebElement User_ConfirmPassword=driver.findElement(User_ConfirmPasswordProperty);
+   User_ConfirmPassword.sendKeys(User_ConfirmPasswordTestData);
+   
+   //<input type="button" class="" id="btnSave" value="Save">
+   By ButtonSaveProperty=By.id("btnSave");
+   WebElement ButtonSave=driver.findElement(ButtonSaveProperty);
+   ButtonSave.click();  
+   driver.navigate().back();
+ }
+
+
+public void EmployeeList()
+{
+	//<a href="/orangehrm-4.2.0.1/symfony/web/index.php/pim/viewEmployeeList/reset/1" id="menu_pim_viewEmployeeList">Employee List</a>
+	By EmployeeListProperty=By.linkText("Employee List");
+    WebElement EmployeeList=driver.findElement(EmployeeListProperty);
+    EmployeeList.click();
+    
+    //<td class="left"><a href="/orangehrm-4.2.0.1/symfony/web/index.php/pim/viewEmployee/empNumber/1">0001</a></td>
+    By EmployeeListsProperty=By.linkText("0001");
+    WebElement EmployeeLists=driver.findElement(EmployeeListsProperty);
+    EmployeeLists.click();
+    
+    //<input value="HEENA" type="text" name="personal[txtEmpFirstName]" class="block default editable" maxlength="30" title="First Name" 
+    //id="personal_txtEmpFirstName" disabled="disabled">
+    
+    By FirstNameProperty=By.id("personal_txtEmpFirstName");
+    WebElement FirstName=driver.findElement(FirstNameProperty);
+    String Actual_FirstNameofEmployee=FirstName.getAttribute("value");
+    System.out.println("The Actual_First Name is:"+Actual_FirstNameofEmployee);
+    
+    String Expected_FirstNameofEmployee="HEENA";
+    System.out.println("The Expected_First Name is:"+Expected_FirstNameofEmployee);
+    
+    if(Actual_FirstNameofEmployee.equals(Expected_FirstNameofEmployee))
+    {
+    	System.out.println("The Actual first Name And expected first Name is matched-PASS");
+    }
+    else
+    {
+    	System.out.println("The Actual first Name And expected first Name is Not matched-FAIL");
+    }
+    System.out.println();
+
+    
+    //<input value="P" type="text" name="personal[txtEmpMiddleName]" class="block default editable" maxlength="30" title="Middle
+    //Name" id="personal_txtEmpMiddleName" disabled="disabled">
+    By middleNameProperty=By.id("personal_txtEmpMiddleName");
+    WebElement middleName=driver.findElement(middleNameProperty);
+    String Actual_middleNameofEmployee=middleName.getAttribute("value");
+    System.out.println("The Actual middle Name is:"+Actual_middleNameofEmployee);
+    
+    String Expected_MiddleNameofEmployee="P";
+    System.out.println("The Expected_middle Name is:"+Expected_MiddleNameofEmployee);
+    
+    if(Actual_middleNameofEmployee.equals(Expected_MiddleNameofEmployee))
+    {
+    	System.out.println("The Actual middle Name And expected middle Name is matched-PASS");
+    }
+    else
+    {
+    	System.out.println("The Actual middle Name And expected middle Name is Not matched-FAIL");
+    }
+    System.out.println();
+   
+    //<input value="PATEL" type="text" name="personal[txtEmpLastName]" class="block default editable" maxlength="30" title="Last
+    //Name" id="personal_txtEmpLastName" disabled="disabled">
+    By LastNameProperty=By.id("personal_txtEmpLastName");
+    WebElement LastName=driver.findElement(LastNameProperty);
+    String Actual_LastNameofEmployeeId=LastName.getAttribute("value");
+    System.out.println("The Actual Last Name is:"+Actual_LastNameofEmployeeId);
+    
+    String Expected_LastNameofEmployee="PATEL";
+    System.out.println("The Expected_Last Name is:"+Expected_LastNameofEmployee);
+    
+    if(Actual_LastNameofEmployeeId.equals(Expected_LastNameofEmployee))
+    {
+    	System.out.println("The Actual Last Name And expected Last Name is matched-PASS");
+    }
+    else
+    {
+    	System.out.println("The Actual Last Name And expected Last Name is Not matched-FAIL");
+    }
+    System.out.println();
+    
+    
+    //<input value="0001" type="text" name="personal[txtEmployeeId]" maxlength="10" class="editable"
+    //id="personal_txtEmployeeId" disabled="disabled">
+    By EmployeeIDProperty=By.id("personal_txtEmployeeId");
+    WebElement EmployeeID=driver.findElement(EmployeeIDProperty);
+    String  EmployeeId=EmployeeID.getAttribute("value");
+    System.out.println("The Employee ID is:"+EmployeeId);
+    
+    //textbox_value = textbox.get_attribute('value')
+
+}
+
+public void ApplicationClose()
+{
+	driver.close();
+}
+
+public static void main(String[] args)
+{
+	PIM_AddEmploye Login=new PIM_AddEmploye();
+	Login.OrangeHRM_ApplicationLaunch();
+	Login.OrangeHRMApplication_Login();
+	Login.Click_PIM();
+	Login.AddEmploye_Click();
+	Login.Adding_Employe();
+	Login.EmployeeList();
+	Login.ApplicationClose();  
+
+}
+
+}
+
